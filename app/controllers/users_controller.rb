@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  skip_before_filter :require_login, only: [:new, :create]
+
   def new
     @user = User.new
   end
@@ -8,6 +10,9 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:notice] = "Welcome to the Secret Share App, #{@user.username}!"
+      @current_user = @user
+      token = @current_user.reset_token
+      session[:token] = token
       redirect_to @user
     else
       flash[:notice] = "Woah, guy, try again!"

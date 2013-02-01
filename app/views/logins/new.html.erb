@@ -1,0 +1,13 @@
+<h1>Login</h1>
+
+<%= form_tag "/login", :method => "post" %>
+
+  <%= label_tag :username, "User Name:" %>
+  <%= text_field_tag :username %>
+  <br />
+  <%= label_tag :password, "Password:" %>
+  <%= password_field_tag :password %>
+  <br />
+  <%= submit_tag "LOGIN SUCKA" %>
+
+<%= link_to "Sign up!", new_user_path %>
