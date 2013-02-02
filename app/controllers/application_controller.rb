@@ -1,29 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :require_login
-  before_filter :check_access
+  # before_filter :check_access
 
   private
 
-  def check_access
-    unless has_access?
+  def check_access(user)
+    unless has_access?(user)
       flash[:error] = "You do not have access to that page"
       puts "AM I HERE???"
       redirect_to @current_user
     end
   end
 
-  def has_access?
-    if !@current_user.nil?
-      if params[:id]
-        puts "I am also here with params Id of #{params.inspect} and current id of #{@current_user.id}"
-        @current_user.id == params[:id].to_i
-      else
-        true
-      end
-    else
-      true
-    end
+  def has_access?(user)
+    @current_user && user && @current_user.id == user.id
   end
 
   def require_login
