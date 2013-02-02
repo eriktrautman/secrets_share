@@ -2,3 +2,12 @@
 
 hi.
 
+<h3>Your friends are freaks!</h3>
+
+<% @user.sharers.map(&:secrets).flatten.shuffle.each do |secret| %>
+
+<p> <%= secret.text %></p>
+
+<% end %>
+
+<%= link_to "Add a secret", new_secret_path %>

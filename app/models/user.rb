@@ -3,6 +3,11 @@ class User < ActiveRecord::Base
   has_secure_password
 
   has_many :secrets
+  has_many :shares_secrets_to, :class_name => "Sharing", :foreign_key => :sharer_id
+  has_many :friends, :through => :shares_secrets_to
+
+  has_many :gets_secrets, :class_name => "Sharing", :foreign_key => :friend_id
+  has_many :sharers, :through => :gets_secrets
 
   validates :username, :uniqueness => true, :presence => true
   validates :password, :length => { :in =>  8..16,
