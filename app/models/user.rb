@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :username, :session_token, :password, :password_confirmation
+  attr_accessible :username, :session_token, :password, :password_confirmation, :email
   has_secure_password
 
   has_many :secrets
@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   has_many :gets_secrets, :class_name => "Sharing", :foreign_key => :friend_id
   has_many :sharers, :through => :gets_secrets
 
+  validates :email, :format => { :with => /^\S+@\S+$/,
+            :message => "Fix yo email, yo." },
+            :presence => true
   validates :username, :uniqueness => true, :presence => true
   validates :password, :length => { :in =>  8..16,
               :message => "must be 8-16 characters"},

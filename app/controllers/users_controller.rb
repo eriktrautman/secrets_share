@@ -13,6 +13,7 @@ class UsersController < ApplicationController
       @current_user = @user
       token = @current_user.reset_token
       session[:token] = token
+      UserMailer.welcome_email(@user).deliver
       redirect_to @user
     else
       flash[:notice] = "Woah, guy, try again!"

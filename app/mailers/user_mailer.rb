@@ -1,9 +1,12 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "erik@example.com"
 
   def welcome_email(user)
+    puts "I SENT AN EMAIL"
     @user = user
-    @url = "http://example.com/login"
+    @url = "http://localhost:3000/login/new"
+    mail(to: user.email, subject: "I RULE and now you should share your seeeeeeecrets with me")
+  end
 
 
 end
